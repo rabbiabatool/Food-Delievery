@@ -1,0 +1,56 @@
+.container-d{
+    width: 70%;
+    margin: auto;
+    height:max-content;
+    background: #df3f3f;
+    padding:5px 30px;
+    padding-bottom: 30px;
+    margin-top: 30px;
+
+}
+
+
+.right h3{
+    font-size: 30px;
+    margin: 0;
+    margin-bottom: 10px;
+
+}
+.right p{
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+
+
+@media(max-width:900px){
+    .container-d{
+        width: 90%;
+      
+    }
+    .right h3{
+        font-size: 20px;
+    }
+    .right p{
+        font-size: 13px;
+    }
+    
+
+    
+    
+
+}
+@media(max-width:500px){
+    .container-d{
+        width: 80%;
+    }
+}
+
+@media(max-width:480px){
+    .container-d{
+        width: 70%;
+    }
+}
+
+

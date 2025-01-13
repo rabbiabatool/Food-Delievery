@@ -1,0 +1,214 @@
+.footer{
+    /* width:100vw; */
+    padding:60px;
+    margin-top:30px;
+}
+.footer hr{
+    width: 80vw;
+    outline:none;
+    border:none;
+    height:1px;
+    margin-bottom: 50px;
+    background: grey;
+}
+.categories-list-contain{
+    
+   
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:20px; 
+    row-gap: 20px;
+    
+}
+.categories-list{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    /* gap:1rem; */
+}
+.categories-list .main-head{
+   
+    width:250px;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin:0;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color:rgb(121, 117, 117);
+    display:block;
+
+}
+
+.categories-list .categories h3{
+    font-size: 20px;
+    text-transform:capitalize;
+    font-weight: 500;
+    margin: 0;
+    margin-right: 2px;
+    margin-bottom:30px;
+    color:rgb(121, 117, 117);
+    display: inline-block;
+    position: relative; /* Needed for positioning the underline */
+    cursor: pointer;    /* Optional: gives a pointer cursor on hover */
+
+}
+
+
+  
+.categories h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;       /* Distance between text and underline */
+    width: 100%;
+    height: 2px;        /* Initial thickness of the underline */
+    background-color:rgb(121, 117, 117);
+    transform: scaleX(1); /* Start with the underline hidden (scaleX 0) */
+    transform-origin: left; /* Animation starts from the left side */
+    transition: transform 0.5s ease; height:0.5s ease; /* Smooth transition */
+}
+  
+.categories h3:hover::after {
+    background-color:rgb(22, 22, 22);
+    transform: scaleX(1); /* Expands the underline to full width */
+    height: 4px; /* Final bold thickness */
+}
+
+.categories{
+    display: flex;
+    gap:1rem;
+}
+.shop-logo img{
+   
+    width:45%;
+    
+   
+    
+   
+}
+
+
+.shop-logo{
+    width:200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.shop-logo hr{
+  width: 1px;
+  height: 50px;
+  background:grey;
+  border: none;
+  margin: auto;
+  margin-left: 2px;
+}
+.other-logos{
+    width: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.other-logos .insta-logo{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+}
+.insta-logo i{
+    margin: auto;
+}
+.other-logos .fb-logo{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    
+}
+.fb-logo i{
+    margin: auto;
+}
+
+.footer-logos{
+    display: flex;
+    justify-content: space-between;
+}
+.footer{
+   width:90%;
+   margin:auto;
+   overflow: hidden;
+}
+
+@media(max-width:1024px){
+   
+    
+    .categories-list-contain{
+        grid-template-columns: 1fr 1fr;
+        
+    }
+    .categories-list .categories h3{
+        font-size: 17px;
+    }
+    .categories-list .main-head{
+        font-size: 17px;
+    }
+    .shop-logo{
+        width: 180px;
+    }
+    .shop-logo img{
+        width: 40%;
+    }
+    
+}
+@media(max-width:800px){
+   
+   
+    .categories-list-contain{
+        grid-template-columns: 1fr;
+        
+    }
+    /* .categories-list-contain .categories-list{
+        margin: auto;
+    } */
+}
+@media(max-width:900px){
+    .footer{
+        width: 90%;
+    }
+   
+}
+@media(max-width:500px){
+    .footer{
+        width: 80%;
+    }
+    .shop-logo{
+        width: 140px;
+    }
+    .other-logos{
+        width: 70px;
+    }
+    .other-logos .insta-logo{
+        width: 30px;
+    }
+    .other-logos .fb-logo{
+        width: 30px;
+    }
+   
+}
+
+@media(max-width:480px){
+    .footer{
+       /* margin-top: 600px; */
+        width: 100%;
+        margin: auto;
+    }
+    .shop-logo{
+        width: 120px;
+    }
+   
+   
+}

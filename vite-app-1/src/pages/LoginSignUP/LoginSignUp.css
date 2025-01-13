@@ -1,0 +1,83 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.login-container{
+    height: 100vh;
+    background: #d26666;
+    padding: 80px;
+    overflow: hidden;
+   
+    
+    
+}
+.login-box{
+    width: 35%;
+    height: 60vh;
+    margin: auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    
+}
+.login-box h1{
+    margin: 0;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+    font-size: 35px;
+    font-weight: 700;
+}
+.login-input-fields{
+    margin-bottom: 1rem;
+
+}
+.login-btn{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.login-btn button{
+    width: 140px;
+    
+}
+.login-btn div{
+   width: 300px;
+   
+}
+.login-btn div p{
+    width: 100%;
+    margin: 0;
+    display: inline;
+    
+    /* display: flex;
+    align-items: flex-end; */
+
+}
+
+.login-btn div .login{
+    color: #ff4141;
+    cursor: pointer;
+}
+
+.login-btn div .signup{
+    color: #ff4141;
+    cursor: pointer;
+}
+
+.login-input-fields input{
+    width: 90%;
+    margin-bottom: 30px;
+    padding: 16px;
+    border: 1px solid #cdc7c7;
+    background: white;
+    border-radius: 4px;
+    color: black;
+   
+    
+}  
+
+.login-input-fields input::placeholder{
+   color: black;
+}

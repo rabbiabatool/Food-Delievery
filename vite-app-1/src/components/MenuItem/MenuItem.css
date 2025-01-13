@@ -1,0 +1,134 @@
+.item{
+    width: 320px;
+    height: 152px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(201, 196, 196);
+    border-radius: 6px;
+    padding: 5px;
+    gap: 10px;
+    background: rgb(255, 255, 255);
+    position: relative;
+}
+.item:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+.item h3{
+    margin:0;
+    font-size: 22px;
+    font-weight: 600;
+}
+.item p{
+    margin: 0;
+    font-size: 18px;
+}
+
+.price{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.price span{
+    font-size: 18px;
+}
+.add-box{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background: rgb(247, 146, 146);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right:20px;
+    top:110px;
+}
+.add-box i{
+    font-size: 25px;
+    color:rgb(13, 10, 10);
+    font-weight: lighter;
+    
+}
+
+.options-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    background: rgb(212, 212, 212);
+    width: 50%;
+    height: 150px;
+    border-radius: 10px;
+}
+.options{
+   
+    padding-left:40px;
+
+
+}
+.options p{
+   font-size: 18px;
+   font-weight: 500;
+   color: rgb(81, 79, 78);
+}
+.options input{
+    vertical-align: middle;
+}
+
+.add-btn{
+    width: 300px;
+    
+    border-radius: 4px; 
+}
+button:active{
+    background: white;
+    transition: 0.3s ease-in-out;
+}
+
+
+/* ease: Starts slow → Speeds up → Ends slow.
+ease-in: Starts slow → Ends fast.
+ease-in-out: Starts slow → Speeds up in the middle → Ends slow. */
+
+.product-increment .disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: #ccc;
+    color:#666;
+}
+
+.productAdd{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+.productAdd p{
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+
+
+.product-increment{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+
+
+.controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 17.5px;
+    border: 1px solid gray;
+}

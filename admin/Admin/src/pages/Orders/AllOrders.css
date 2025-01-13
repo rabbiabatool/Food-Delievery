@@ -1,0 +1,68 @@
+.all_orders{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 20px;
+    background: white;
+    height: 740px;
+    overflow-y: auto;
+    border-radius: 6px;
+    width: 100%;
+    gap: 20px;
+}
+
+.ordersList{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    gap: 30px;
+    color: #454545;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 20px 0;
+}
+
+.all_orders hr{
+    background: #d3d3d3;
+    width: 100%;
+    border: none;
+    height: 1px;
+}
+
+@media(min-width:801px){
+    .all_orders{
+        height: 740px;
+        margin: 20px;
+    }
+    .ordersList{
+        grid-template-columns:3fr 1fr 1fr 1fr 1fr;
+        gap:25px;
+    }
+}
+
+@media(min-width:601px) and (max-width:800px){
+    .all_orders{
+        height: 740px;
+        margin: 0;
+        margin-top: 10px;
+    }
+    .ordersList{
+        grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+        gap: 15px;
+        font-size: 14px;
+    }
+}
+
+@media(max-width:600px){
+    .all_orders{
+        height: auto;
+        margin: 0;
+        margin-top: 10px;
+        
+    }
+    .ordersList{
+        grid-template-columns: 1fr;
+        gap: 15px;
+        font-size: 14px;
+    }
+}

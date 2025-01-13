@@ -1,0 +1,5 @@
+.list {
+    overflow: auto; /* Allows scrolling */
+    height: auto;   /* Ensure height is not restricted */
+    min-height: 100vh; /* Ensures it takes at least the full viewport height */
+}

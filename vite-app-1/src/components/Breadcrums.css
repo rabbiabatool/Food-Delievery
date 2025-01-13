@@ -1,0 +1,11 @@
+.bread{
+    display: flex;
+    gap: 10px;
+    margin: 50px;
+    align-items: center;
+    margin-top: 150px;
+    
+}
+.bread p{
+    margin: 0;
+}

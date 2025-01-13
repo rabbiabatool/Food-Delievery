@@ -1,0 +1,17 @@
+.searched-items{
+    width:80%;
+    margin:auto;
+    margin-top: 150px;
+   
+
+}
+.searched-items h1{
+    font-size: 30px;
+    
+}
+
+@media(max-width:900px){
+    .searched-items h1{
+        font-size: 25px;
+    }
+}
