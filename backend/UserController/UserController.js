@@ -11,182 +11,182 @@ const base64url = require('base64url');
 
 
 
-// The scope for sending emails via Gmail
-const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
+// // The scope for sending emails via Gmail
+// const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
 
-// // Path to the credentials file and token file
-// const CREDENTIALS_PATH = 'credentials.json'; // Change this to your credentials.json path
-// const TOKEN_PATH = 'token.json'; // Path to the token file
-const CREDENTIALS_PATH = 'Your'; // Change this to your credentials.json path
-const TOKEN_PATH = 'Your'; // Path to the token file
-// Get a new token after OAuth flow
-function getNewToken(oAuth2Client) {
-  return new Promise((resolve, reject) => {
-    const authUrl = oAuth2Client.generateAuthUrl({
-      access_type: 'offline',
-      scope: SCOPES
-    });
+// // // Path to the credentials file and token file
+// // const CREDENTIALS_PATH = 'credentials.json'; // Change this to your credentials.json path
+// // const TOKEN_PATH = 'token.json'; // Path to the token file
+// const CREDENTIALS_PATH = 'Your'; // Change this to your credentials.json path
+// const TOKEN_PATH = 'Your'; // Path to the token file
+// // Get a new token after OAuth flow
+// function getNewToken(oAuth2Client) {
+//   return new Promise((resolve, reject) => {
+//     const authUrl = oAuth2Client.generateAuthUrl({
+//       access_type: 'offline',
+//       scope: SCOPES
+//     });
 
-    console.log('Authorize this app by visiting this url:', authUrl);
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
+//     console.log('Authorize this app by visiting this url:', authUrl);
+//     const rl = readline.createInterface({
+//       input: process.stdin,
+//       output: process.stdout
+//     });
 
-    rl.question('Enter the code from that page here: ', async (code) => {
-      rl.close();
-      try {
-        const { tokens } = await oAuth2Client.getToken(code);
-        oAuth2Client.setCredentials(tokens);
-        await fs.promises.writeFile(TOKEN_PATH, JSON.stringify(tokens));
-        resolve();
-      } catch (error) {
-        reject('Error retrieving access token');
-      }
-    });
-  });
-}
+//     rl.question('Enter the code from that page here: ', async (code) => {
+//       rl.close();
+//       try {
+//         const { tokens } = await oAuth2Client.getToken(code);
+//         oAuth2Client.setCredentials(tokens);
+//         await fs.promises.writeFile(TOKEN_PATH, JSON.stringify(tokens));
+//         resolve();
+//       } catch (error) {
+//         reject('Error retrieving access token');
+//       }
+//     });
+//   });
+// }
 
-// Authenticate the user and get the Gmail API service
-async function authenticateGmail() {
-  let credentials;
+// // Authenticate the user and get the Gmail API service
+// async function authenticateGmail() {
+//   let credentials;
 
-  try {
-    credentials = await fs.promises.readFile(CREDENTIALS_PATH);
-  } catch (error) {
-    console.log('Error reading credentials file:', error);
-    return;
-  }
+//   try {
+//     credentials = await fs.promises.readFile(CREDENTIALS_PATH);
+//   } catch (error) {
+//     console.log('Error reading credentials file:', error);
+//     return;
+//   }
 
-  const { client_id, client_secret, redirect_uris } = JSON.parse(credentials).installed;
-  const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+//   const { client_id, client_secret, redirect_uris } = JSON.parse(credentials).installed;
+//   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
-  let token;
+//   let token;
 
-  // Check if token.json exists
-  try {
-    token = await fs.promises.readFile(TOKEN_PATH);
-  } catch (error) {
-    console.log('No token found, starting OAuth flow...');
-    await getNewToken(oAuth2Client);
-    return;
-  }
+//   // Check if token.json exists
+//   try {
+//     token = await fs.promises.readFile(TOKEN_PATH);
+//   } catch (error) {
+//     console.log('No token found, starting OAuth flow...');
+//     await getNewToken(oAuth2Client);
+//     return;
+//   }
 
-  oAuth2Client.setCredentials(JSON.parse(token));
-  return google.gmail({ version: 'v1', auth: oAuth2Client });
-}
-
-
-
-// Create the email message
-function createMessage(sender, to, subject, body) {
-    const message = [
-        `From: ${sender}`,
-        `To: ${to}`,
-        `Subject: ${subject}`,
-        '',
-        body
-    ].join('\n');
-
-    const rawMessage = base64url.encode(message);
-    return { raw: rawMessage };
-}
-
-// Send the email
-async function sendEmail(service, sender, to, subject, body) {
-    const message = createMessage(sender, to, subject, body);
-
-    try {
-        const sendMessage = await service.users.messages.send({
-            userId: 'me',
-            requestBody: message
-        });
-        console.log('Message Id:', sendMessage.data.id);
-    } catch (error) {
-        console.error('Error occurred while sending email:', error);
-    }
-}
-module.exports.EmailNotification = async (req, res) => {
-    const {message}=req.body;
-    const service = await authenticateGmail();
-
-    if (!service) {
-        console.log('Authentication failed');
-        return;
-    }
-
-    const users = await User.findById(req.user.id);
+//   oAuth2Client.setCredentials(JSON.parse(token));
+//   return google.gmail({ version: 'v1', auth: oAuth2Client });
+// }
 
 
 
-    const sender = 'rabbiabatool875@gmail.com'; // Change to your email
-    const to = users.email; // The user's email
-    const subject = 'Order placement';
-    const body = `
-       ${message}
+// // Create the email message
+// function createMessage(sender, to, subject, body) {
+//     const message = [
+//         `From: ${sender}`,
+//         `To: ${to}`,
+//         `Subject: ${subject}`,
+//         '',
+//         body
+//     ].join('\n');
+
+//     const rawMessage = base64url.encode(message);
+//     return { raw: rawMessage };
+// }
+
+// // Send the email
+// async function sendEmail(service, sender, to, subject, body) {
+//     const message = createMessage(sender, to, subject, body);
+
+//     try {
+//         const sendMessage = await service.users.messages.send({
+//             userId: 'me',
+//             requestBody: message
+//         });
+//         console.log('Message Id:', sendMessage.data.id);
+//     } catch (error) {
+//         console.error('Error occurred while sending email:', error);
+//     }
+// }
+// module.exports.EmailNotification = async (req, res) => {
+//     const {message}=req.body;
+//     const service = await authenticateGmail();
+
+//     if (!service) {
+//         console.log('Authentication failed');
+//         return;
+//     }
+
+//     const users = await User.findById(req.user.id);
+
+
+
+//     const sender = 'rabbiabatool875@gmail.com'; // Change to your email
+//     const to = users.email; // The user's email
+//     const subject = 'Order placement';
+//     const body = `
+//        ${message}
        
-      `;
+//       `;
 
-    // Send email to the user
-    await sendEmail(service, sender, to, subject, body);
-    res.json({ success: true });
-}
+//     // Send email to the user
+//     await sendEmail(service, sender, to, subject, body);
+//     res.json({ success: true });
+// }
 
-// app.use('/images',express.static('upload/images'))
-const { google } = require('googleapis');
+// // app.use('/images',express.static('upload/images'))
+// const { google } = require('googleapis');
 
+// // // Path to the Google Service Account JSON file
+// // const SERVICE_ACCOUNT_FILE = './rising-capsule-444115-h8-2de004958209.json';
+// // const SPREADSHEET_ID = '1MMAQBTfKBkbIozmnu1DvwDyJJQ0ndzNKyPXbDPFlbTA';
 // // Path to the Google Service Account JSON file
-// const SERVICE_ACCOUNT_FILE = './rising-capsule-444115-h8-2de004958209.json';
-// const SPREADSHEET_ID = '1MMAQBTfKBkbIozmnu1DvwDyJJQ0ndzNKyPXbDPFlbTA';
-// Path to the Google Service Account JSON file
-const SERVICE_ACCOUNT_FILE = 'Your';
-const SPREADSHEET_ID = 'Your';
-// Set up credentials and service
-const auth = new google.auth.GoogleAuth({
-    keyFile: SERVICE_ACCOUNT_FILE,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-});
+// const SERVICE_ACCOUNT_FILE = 'Your';
+// const SPREADSHEET_ID = 'Your';
+// // Set up credentials and service
+// const auth = new google.auth.GoogleAuth({
+//     keyFile: SERVICE_ACCOUNT_FILE,
+//     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+// });
 
-// Function to get Google Sheets service
-async function getSheetsService() {
-    const authClient = await auth.getClient();
-    return google.sheets({ version: 'v4', auth: authClient });
-}
+// // Function to get Google Sheets service
+// async function getSheetsService() {
+//     const authClient = await auth.getClient();
+//     return google.sheets({ version: 'v4', auth: authClient });
+// }
 
-// Function to read data from the Google Sheet
-async function readData(rangeName) {
-    try {
-        const sheets = await getSheetsService();
-        const response = await sheets.spreadsheets.values.get({
-            spreadsheetId: SPREADSHEET_ID,
-            range: rangeName,
-        });
-        return response.data.values || [];
-    } catch (error) {
-        console.error('Error reading data:', error.message);
-        return [];
-    }
-}
+// // Function to read data from the Google Sheet
+// async function readData(rangeName) {
+//     try {
+//         const sheets = await getSheetsService();
+//         const response = await sheets.spreadsheets.values.get({
+//             spreadsheetId: SPREADSHEET_ID,
+//             range: rangeName,
+//         });
+//         return response.data.values || [];
+//     } catch (error) {
+//         console.error('Error reading data:', error.message);
+//         return [];
+//     }
+// }
 
-// Function to append data to the Google Sheet
-async function appendData(rangeName, values) {
-    try {
-        const sheets = await getSheetsService();
-        const request = {
-            spreadsheetId: SPREADSHEET_ID,
-            range: rangeName,
-            valueInputOption: 'RAW',
-            requestBody: {
-                values: values,
-            },
-        };
-        const response = await sheets.spreadsheets.values.append(request);
-        return response.data;
-    } catch (error) {
-        console.error('Error appending data:', error.message);
-        return null;
-    }
-}
+// // Function to append data to the Google Sheet
+// async function appendData(rangeName, values) {
+//     try {
+//         const sheets = await getSheetsService();
+//         const request = {
+//             spreadsheetId: SPREADSHEET_ID,
+//             range: rangeName,
+//             valueInputOption: 'RAW',
+//             requestBody: {
+//                 values: values,
+//             },
+//         };
+//         const response = await sheets.spreadsheets.values.append(request);
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error appending data:', error.message);
+//         return null;
+//     }
+// }
 
 
 
