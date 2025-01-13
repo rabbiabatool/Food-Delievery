@@ -1,8 +1,8 @@
 const { Product } = require("../UserModel/UserModel");
 const { User } = require("../UserModel/UserModel");
 const jwt = require('jsonwebtoken');
-const stripe = require('stripe')("sk_test_51Phy2JAfxtUK8Ufa8ePivAyNIfRalMRJZDOLN8mCHHICS73VUhL8iWd6BPwjaRphPue6fUeTUW7G6gttEtYYYwJz00tEgfDF8X");
-
+// const stripe = require('stripe')("sk_test_51Phy2JAfxtUK8Ufa8ePivAyNIfRalMRJZDOLN8mCHHICS73VUhL8iWd6BPwjaRphPue6fUeTUW7G6gttEtYYYwJz00tEgfDF8X");
+const stripe = require('stripe')("YourKey");
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
@@ -14,10 +14,11 @@ const base64url = require('base64url');
 // The scope for sending emails via Gmail
 const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
 
-// Path to the credentials file and token file
-const CREDENTIALS_PATH = 'credentials.json'; // Change this to your credentials.json path
-const TOKEN_PATH = 'token.json'; // Path to the token file
-
+// // Path to the credentials file and token file
+// const CREDENTIALS_PATH = 'credentials.json'; // Change this to your credentials.json path
+// const TOKEN_PATH = 'token.json'; // Path to the token file
+const CREDENTIALS_PATH = 'Your'; // Change this to your credentials.json path
+const TOKEN_PATH = 'Your'; // Path to the token file
 // Get a new token after OAuth flow
 function getNewToken(oAuth2Client) {
   return new Promise((resolve, reject) => {
@@ -134,10 +135,12 @@ module.exports.EmailNotification = async (req, res) => {
 // app.use('/images',express.static('upload/images'))
 const { google } = require('googleapis');
 
+// // Path to the Google Service Account JSON file
+// const SERVICE_ACCOUNT_FILE = './rising-capsule-444115-h8-2de004958209.json';
+// const SPREADSHEET_ID = '1MMAQBTfKBkbIozmnu1DvwDyJJQ0ndzNKyPXbDPFlbTA';
 // Path to the Google Service Account JSON file
-const SERVICE_ACCOUNT_FILE = './rising-capsule-444115-h8-2de004958209.json';
-const SPREADSHEET_ID = '1MMAQBTfKBkbIozmnu1DvwDyJJQ0ndzNKyPXbDPFlbTA';
-
+const SERVICE_ACCOUNT_FILE = 'Your';
+const SPREADSHEET_ID = 'Your';
 // Set up credentials and service
 const auth = new google.auth.GoogleAuth({
     keyFile: SERVICE_ACCOUNT_FILE,
