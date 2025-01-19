@@ -1,11 +1,12 @@
 const express=require("express");
 const cors=require("cors");
 const app=express();
+require('dotenv').config(); 
 
 const {UserRouter}=require("./UserRouter/UserRouter");
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: process.env.WEB_PORT });
 
 wss.on('connection', function connection(ws) {
   console.log('Client connected');
@@ -40,7 +41,7 @@ app.use(express.json());
 
 
 
-app.listen(5000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("Server listening at port 5000");
 })
 
