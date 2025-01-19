@@ -106,31 +106,31 @@ const base64url = require('base64url');
 //         console.error('Error occurred while sending email:', error);
 //     }
 // }
-// module.exports.EmailNotification = async (req, res) => {
-//     const {message}=req.body;
-//     const service = await authenticateGmail();
+module.exports.EmailNotification = async (req, res) => {
+    const {message}=req.body;
+    const service = await authenticateGmail();
 
-//     if (!service) {
-//         console.log('Authentication failed');
-//         return;
-//     }
+    if (!service) {
+        console.log('Authentication failed');
+        return;
+    }
 
-//     const users = await User.findById(req.user.id);
+    const users = await User.findById(req.user.id);
 
 
 
-//     const sender = 'rabbiabatool875@gmail.com'; // Change to your email
-//     const to = users.email; // The user's email
-//     const subject = 'Order placement';
-//     const body = `
-//        ${message}
+    const sender = 'rabbiabatool875@gmail.com'; // Change to your email
+    const to = users.email; // The user's email
+    const subject = 'Order placement';
+    const body = `
+       ${message}
        
-//       `;
+      `;
 
-//     // Send email to the user
-//     await sendEmail(service, sender, to, subject, body);
-//     res.json({ success: true });
-// }
+    // Send email to the user
+    await sendEmail(service, sender, to, subject, body);
+    res.json({ success: true });
+}
 
 // // app.use('/images',express.static('upload/images'))
 // const { google } = require('googleapis');
