@@ -4,7 +4,7 @@ import {Routes,Route} from "react-router-dom";
 import Add_Product from "../AddProduct/Add_Product";
 import './Admin.css';
 import List_Product from "../ListProduct/List_Product";
-import AllOrders from "../Orders/allOrders";
+import AllOrders from "../Orders/AllOrders.jsx";
 import { Chat } from "../../components/Chat/Chat";
 // import all from "../Orders/allOrders";
 
