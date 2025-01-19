@@ -1,8 +1,14 @@
 const mongoose=require("mongoose");
+// "mongodb://localhost:27017/food_Delievery"
+// const uri="mongodb+srv://rabbiabatool875:RyvFzhqClOKp7u6W@cluster0.rzziv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+require('dotenv').config();  // Add this line to load the .env file
 
-mongoose.connect("mongodb://localhost:27017/food_Delievery").then(() => {
+mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("MongoDB connected");
+}).catch(err => {
+    console.log("MongoDB connection error: ", err);
 });
+
 
 const ProductSchema=new mongoose.Schema({
     id:{
