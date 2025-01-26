@@ -75,74 +75,51 @@
 // server.use('/images',express.static('upload/images'));
 
 
-// server.use(UserRouter);
 require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
-const http = require("http");
 const WebSocket = require("ws");
 const { UserRouter } = require("./UserRouter/UserRouter");
 
 const app = express();
-const server = http.createServer(app);  // Attach Express to HTTP server
-// const wss = new WebSocket.Server({ server });
-const wss = new WebSocket.Server({ server });
 
+const PORT = process.env.PORT || 5000; // Define port here
 
-const PORT = process.env.PORT || 5000;
+const wss = new WebSocket.Server({ port: PORT }); // Use Railway's PORT env var
 
-// ✅ Correctly setup Express middlewares
+wss.on('connection', ws => {
+  console.log('Client connected');
+
+  ws.on('message', message => {
+    console.log(`Received: ${message}`);
+    ws.send(`Echo: ${message}`); // Send back the received message
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+
+  ws.on('error', error => {
+    console.error('WebSocket error:', error);
+  });
+});
+
+// Correctly setup Express middlewares
 app.use(cors({
-  origin: '*', // Or specify your frontend domain, like 'https://food-delievery-production.up.railway.app'
+  origin: '*', // Or specify your frontend domain
   methods: ['GET', 'POST'],
 }));
 
-// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// ✅ Serve static images
+// Serve static images
 app.use('/images', express.static('upload/images'));
 
-// ✅ Attach User Router
+// Attach User Router
 app.use(UserRouter);
-wss.on("connection", (ws) => {
-  console.log("Client connected");
-  ws.on("message", (message) => {
-    console.log("Received:", message);
-    ws.send("Message received: " + message); // Echo back for testing
-  });
-  ws.on("close", () => console.log("Client disconnected"));
-});
 
-
-// // ✅ WebSocket logic
-// wss.on("connection", (ws) => {
-//   console.log("Client connected");
-//   ws.on("message", (message) => {
-//     console.log("📩 Received:", message);
-  
-//     // ✅ Broadcast the message to all connected clients
-//     wss.clients.forEach((client) => {
-//       if (client.readyState === WebSocket.OPEN) {
-//         client.send(message);
-//       }
-//     });
-//   });
-  
-  // ws.on("message", (message) => {
-  //   console.log("Received:", message);
-  //   ws.send("Message received: " + message); // Echo back for testing
-  // });
-
-//   ws.on("close", () => console.log("Client disconnected"));
-// });
-server.listen(PORT, '0.0.0.0', () => {
+// Start the WebSocket server
+wss.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-// // ✅ Start the HTTP + WebSocket server
-// server.listen(process.env.PORT, () => {
-//   console.log(`✅ Server running on port ${PORT}`);
-// });
-
-
