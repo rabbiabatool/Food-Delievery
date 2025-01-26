@@ -11,8 +11,12 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 });
 // Multer Storage (Temporary file storage)
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage });
+const upload = multer({
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB limit
+    storage: multer.memoryStorage(),
+});
 router.post("/upload", upload.single("image"), async (req, res) => {
     try {
         if (!req.file) {

@@ -40,6 +40,7 @@ wss.on('connection', function connection(ws) {
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 
 
