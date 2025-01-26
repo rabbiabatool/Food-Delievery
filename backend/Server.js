@@ -92,7 +92,12 @@ const wss = new WebSocket.Server({ server });
 const PORT = process.env.PORT || 5000;
 
 // ✅ Correctly setup Express middlewares
-app.use(cors());
+app.use(cors({
+  origin: '*', // Or specify your frontend domain, like 'https://food-delievery-production.up.railway.app'
+  methods: ['GET', 'POST'],
+}));
+
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
@@ -101,28 +106,37 @@ app.use('/images', express.static('upload/images'));
 
 // ✅ Attach User Router
 app.use(UserRouter);
-
-// ✅ WebSocket logic
 wss.on("connection", (ws) => {
   console.log("Client connected");
   ws.on("message", (message) => {
-    console.log("📩 Received:", message);
-  
-    // ✅ Broadcast the message to all connected clients
-    wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
+    console.log("Received:", message);
+    ws.send("Message received: " + message); // Echo back for testing
   });
+  ws.on("close", () => console.log("Client disconnected"));
+});
+
+
+// // ✅ WebSocket logic
+// wss.on("connection", (ws) => {
+//   console.log("Client connected");
+//   ws.on("message", (message) => {
+//     console.log("📩 Received:", message);
+  
+//     // ✅ Broadcast the message to all connected clients
+//     wss.clients.forEach((client) => {
+//       if (client.readyState === WebSocket.OPEN) {
+//         client.send(message);
+//       }
+//     });
+//   });
   
   // ws.on("message", (message) => {
   //   console.log("Received:", message);
   //   ws.send("Message received: " + message); // Echo back for testing
   // });
 
-  ws.on("close", () => console.log("Client disconnected"));
-});
+//   ws.on("close", () => console.log("Client disconnected"));
+// });
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
 });
