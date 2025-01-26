@@ -96,7 +96,7 @@ export function Chat() {
 
               <p key={index} className="my-msg">
                 {/* <p className="profile"></p> */}
-                <p>{msg}</p>
+                {msg}
               </p>
             ))}
 
@@ -105,11 +105,11 @@ export function Chat() {
           {/* Render all messages as separate divs */}
           <div className="output-div" style={{ marginTop: "20px" }}>
             {messages.map((msg, index) => (
-              <p key={index} className="your-msg">
+              <div key={index} className="your-msg">
                 <p className="profile" style={{display:"block"}}>{msg.email}</p>
                 {/* <p className="profile">{msg.RegNo}</p> */}
                 <p>{msg.message}</p>
-              </p>
+              </div>
             ))}
           </div>
         </div>
