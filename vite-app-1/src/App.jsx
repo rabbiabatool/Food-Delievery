@@ -3,8 +3,8 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Product from './pages/Product'
 import RestaurantsList from './pages/RestaurantsList/RestaurantsList'
 // import '@fortawesome/fontawesome-free/css/all.min.css';
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import SearchedItem from './pages/SearchedItems/SearchedItem';
 import Checkout from './components/Checkout/Checkout';
 import LoginSignUp from './pages/LoginSignUP/LoginSignUp';

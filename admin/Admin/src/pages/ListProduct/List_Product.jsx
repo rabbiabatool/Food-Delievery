@@ -11,7 +11,7 @@ export default function List_Product(){
 
     useEffect(()=>{
         const fetchData=async()=>{
-           await fetch('http://localhost:5000/all_products',{
+           await fetch('https://food-delievery-production.up.railway.app/all_products',{
                method:'GET',
                headers:{
                    'Content-Type':'application/json'
@@ -24,7 +24,7 @@ export default function List_Product(){
 
    const RemoveProduct=async(Id)=>{
 
-    await fetch('http://localhost:5000/remove_product',{
+    await fetch('https://food-delievery-production.up.railway.app/remove_product',{
         method:'POST',
         headers:{
             'Accept':'application/json',

@@ -34,7 +34,7 @@ export default function LoginSignUp() {
 
     const LoginFunction = async () => {
         let response;
-        await fetch('http://localhost:5000/login', {
+        await fetch('https://food-delievery-production.up.railway.app/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/form-data',
@@ -56,7 +56,7 @@ export default function LoginSignUp() {
 
     const SignUpFunction = async () => {
         let response;
-        await fetch('http://localhost:5000/signup', {
+        await fetch('https://food-delievery-production.up.railway.app/signup', {
             method: 'POST',
             headers: {
                 Accept: 'application/form-data',

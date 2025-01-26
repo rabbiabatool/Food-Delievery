@@ -8,7 +8,7 @@ export default function Success(){
    const RemoveCart=async()=>{
     let response;
     if(localStorage.getItem('auth-token')){
-        await fetch('http://localhost:5000/removeCart',{
+        await fetch('https://food-delievery-production.up.railway.app/removeCart',{
             method:'PUT',
             headers:{
                 
@@ -31,7 +31,7 @@ export default function Success(){
         let response;
         const message="Your order has been placed successfully";
 
-        await fetch('http://localhost:5000/sendEmail', {
+        await fetch('https://food-delievery-production.up.railway.app/sendEmail', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

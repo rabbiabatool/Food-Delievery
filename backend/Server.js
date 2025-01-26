@@ -1,13 +1,15 @@
 const express=require("express");
 const cors=require("cors");
 const app=express();
+const http = require("http");
 require('dotenv').config(); 
-
 const {UserRouter}=require("./UserRouter/UserRouter");
 const WebSocket = require('ws');
+const server = http.createServer(app);  // Attach Express to the same HTTP server
+const wss = new WebSocket.Server({ server });
 
-const wss = new WebSocket.Server({ port: process.env.WEB_PORT });
 
+ 
 wss.on('connection', function connection(ws) {
   console.log('Client connected');
 

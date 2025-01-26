@@ -16,7 +16,7 @@ export function Chat() {
     // Create the WebSocket connection when the component mounts
     // const email=localStorage.getItem("email");
     // console.log(email);
-    const newSocket = new WebSocket("ws://localhost:8080");
+    const newSocket = new WebSocket("wss://food-delievery-production.up.railway.app");
 
     newSocket.onopen = () => {
       console.log("✅ Connected to WebSocket server");

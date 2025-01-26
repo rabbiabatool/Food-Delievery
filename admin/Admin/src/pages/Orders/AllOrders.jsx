@@ -11,7 +11,7 @@ export default function AllOrders(){
         const fetchInfo=async()=>{
           try{
 
-            const response=await fetch('http://localhost:5000/getOrders',{
+            const response=await fetch('https://food-delievery-production.up.railway.app/getOrders',{
               method:'GET',
               headers:{
                  'Accept':'application/json',

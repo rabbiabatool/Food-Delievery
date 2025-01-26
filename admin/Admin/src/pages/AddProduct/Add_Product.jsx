@@ -47,9 +47,9 @@ function Add_Product() {
         let responseData;
 
         const formdata=new FormData();
-        formdata.append('profile',image);
+        formdata.append('image',image);
 
-        await fetch('http://localhost:5000/upload',{
+        await fetch('https://food-delievery-production.up.railway.app/upload',{
             method:'POST',
             headers:{
                 Accept:'application/json'
@@ -59,9 +59,10 @@ function Add_Product() {
 
         console.log("data",product);
 
-        if(responseData.success){
-            product.image=responseData.profile_url;
-            await fetch('http://localhost:5000/addProduct',{
+        // if(responseData.success){
+            product.image=responseData.imageUrl;
+            alert(product.image);
+            await fetch('https://food-delievery-production.up.railway.app/addProduct',{
                 method:'POST',
                 headers:{
                     Accept:'application/json',
@@ -73,7 +74,7 @@ function Add_Product() {
                 data.success?alert("Product added"):alert(`Failed:${data.message}`)
             })
 
-        }
+        // }
 
 
 

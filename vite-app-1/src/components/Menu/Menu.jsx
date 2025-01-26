@@ -43,7 +43,7 @@ export default function Menu({ product }) {
     const fetchData = async () => {
         try {
             // Fetch cart data
-            const cartResponse = await fetch('http://localhost:5000/getCart', {
+            const cartResponse = await fetch('https://food-delievery-production.up.railway.app/getCart', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export default function Menu({ product }) {
             console.log('Cart Data:', cartData);
 
             // Fetch total price
-            const priceResponse = await fetch('http://localhost:5000/priceTotal', {
+            const priceResponse = await fetch('https://food-delievery-production.up.railway.app/priceTotal', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export default function Menu({ product }) {
 
     const RemoveItem = async (category) => {
 
-        await fetch('http://localhost:5000/removeItem', {
+        await fetch('https://food-delievery-production.up.railway.app/removeItem', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

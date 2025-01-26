@@ -40,7 +40,7 @@ export default function MenuItem(props){
         if(localStorage.getItem('auth-token')){
 
            
-            await fetch('http://localhost:5000/addToCart',{
+            await fetch('https://food-delievery-production.up.railway.app/addToCart',{
                 method:'POST',
                 headers:{
                     'Accept':'application/form-data',
@@ -75,7 +75,7 @@ export default function MenuItem(props){
     const RemoveCart=async()=>{
         let response;
         if(localStorage.getItem('auth-token')){
-            await fetch('http://localhost:5000/removeCart',{
+            await fetch('https://food-delievery-production.up.railway.app/removeCart',{
                 method:'PUT',
                 headers:{
                     

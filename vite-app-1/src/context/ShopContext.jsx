@@ -20,7 +20,7 @@ const ShopContextProvider=(props)=>{
 
     useEffect(()=>{
         const fetchData=async()=>{
-           await fetch('http://localhost:5000/all_products',{
+           await fetch('https://food-delievery-production.up.railway.app/all_products',{
                method:'GET',
                headers:{
                    'Content-Type':'application/json'
@@ -36,7 +36,7 @@ const ShopContextProvider=(props)=>{
         let quantity;
 
        if(localStorage.getItem('auth-token')){
-         await fetch('http://localhost:5000/cartTotal',{
+         await fetch('https://food-delievery-production.up.railway.app/cartTotal',{
             method:'GET',
             headers:{
                 'auth-token':`${localStorage.getItem('auth-token')}`,

@@ -51,7 +51,7 @@ const Checkout = () => {
 
         const fetchInfo = async () => {
 
-            await fetch('http://localhost:5000/getCart', {
+            await fetch('https://food-delievery-production.up.railway.app/getCart', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Checkout = () => {
 
             }).then((resp) => resp.json()).then((data) => setCartData(data));
 
-            await fetch('http://localhost:5000/priceTotal', {
+            await fetch('https://food-delievery-production.up.railway.app/priceTotal', {
                 method: 'GET',
                 headers: {
                     'auth-token': `${localStorage.getItem('auth-token')}`,
@@ -107,7 +107,7 @@ const Checkout = () => {
             };
             // setCartData([]); remove cart function here
             // Send request to server
-            const response = await fetch('http://localhost:5000/create-checkout-session', {
+            const response = await fetch('https://food-delievery-production.up.railway.app/create-checkout-session', {
                 method: 'POST',
                 headers,
                 body: JSON.stringify(body)
@@ -139,7 +139,7 @@ const Checkout = () => {
         let response;
         const message="Your order has been placed successfully";
 
-        await fetch('http://localhost:5000/sendEmail', {
+        await fetch('https://food-delievery-production.up.railway.app/sendEmail', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -174,7 +174,7 @@ const Checkout = () => {
     const RemoveCart=async()=>{
         let response;
         if(localStorage.getItem('auth-token')){
-            await fetch('http://localhost:5000/removeCart',{
+            await fetch('https://food-delievery-production.up.railway.app/removeCart',{
                 method:'PUT',
                 headers:{
                     
