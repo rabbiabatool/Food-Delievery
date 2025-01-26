@@ -21,18 +21,18 @@ export function Chat() {
     
 
     newSocket.onopen = () => {
-      console.log("✅ Connected to WebSocket server");
+      console.log("Connected to WebSocket server");
     };
 
     newSocket.onmessage = (event) => {
       const message = event.data; // The message is in the format "email: message"
-      console.log('📩 Message received:', message);
+      console.log('Message received:', message);
 
       // Split the message into email and message
       const [email, ...msgParts] = message.split(':');
       const actualMessage = msgParts.join(':').trim();
 
-      console.log(`📧 Received message from ${email}: ${actualMessage}`);
+      console.log(`Received message from ${email}: ${actualMessage}`);
 
       // Update state with the received message
       setMessages((prevMessages) => [
@@ -42,14 +42,14 @@ export function Chat() {
     };
 
     newSocket.onclose = () => {
-      console.log("❌ Disconnected from WebSocket server");
+      console.log("Disconnected from WebSocket server");
     };
 
     setSocket(newSocket);
 
     // Cleanup WebSocket connection when the component unmounts
     return () => {
-      console.log("🧹 Closing WebSocket connection");
+      console.log("Closing WebSocket connection");
       newSocket.close();
     };
   }, []);

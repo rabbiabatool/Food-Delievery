@@ -27,18 +27,18 @@ export function Chat() {
     // const newSocket = new WebSocket("ws://localhost:8080");
 
     newSocket.onopen = () => {
-      console.log("✅ Connected to WebSocket server");
+      console.log("Connected to WebSocket server");
     };
 
     newSocket.onmessage = (event) => {
       const message = event.data; // The message is in the format "email: message"
-      console.log('📩 Message received:', message);
+      console.log('Message received:', message);
 
       // Split the message into email and message
       const [email, ...msgParts] = message.split(':');
       const actualMessage = msgParts.join(':').trim();
 
-      console.log(`📧 Received message from ${email}: ${actualMessage}`);
+      console.log(`Received message from ${email}: ${actualMessage}`);
 
       // Update state with the received message
       setMessages((prevMessages) => [
@@ -48,7 +48,7 @@ export function Chat() {
     };
 
     newSocket.onclose = () => {
-      console.log("❌ Disconnected from WebSocket server");
+      console.log("Disconnected from WebSocket server");
     };
 
     setSocket(newSocket);
@@ -70,7 +70,7 @@ export function Chat() {
     if (socket && messageInput.trim() !== "") {
       const email=localStorage.getItem("email");
       console.log("email",email);
-      const messageToSend = `${email} ${messageInput}`;
+      const messageToSend = `${email}:${messageInput}`;
       socket.send(messageToSend);
       setMyMessage((prev) => [...prev, messageInput]);
       setMessageInput(""); // Clear input after sending

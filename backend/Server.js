@@ -94,10 +94,26 @@ const wss = new WebSocket.Server({ server }); // Attach to the server
 wss.on('connection', ws => {
   console.log('Client connected');
 
-  ws.on('message', message => {
-    console.log(`Received: ${message}`);
-    ws.send(`Echo: ${message}`);
+  ws.on('message', function incoming(message) {
+    console.log('Received: %s', message);
+    const messageString = message.toString();
+
+    // Split the message to get the email and the actual message
+    const [email, ...msgParts] = messageString.split(':');
+    const actualMessage = msgParts.join(':').trim();  // Join back the message if it contains multiple parts
+
+    console.log(`Received message from ${email}: ${actualMessage}`);
+
+    // Broadcast the message to all clients except the sender
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        // Send the email and message to the other clients
+        client.send(`${email}: ${actualMessage}`);
+        console.log("Broadcasted to a client");
+      }
+    });
   });
+
 
   ws.on('close', () => {
     console.log('Client disconnected');
