@@ -17,7 +17,11 @@ export function Chat() {
     // const email=localStorage.getItem("email");
     // console.log(email);
     // const newSocket = new WebSocket("wss://food-delievery-production.up.railway.app");
-    const newSocket = new WebSocket("wss://food-delievery-production.up.railway.app");
+    // const newSocket = new WebSocket("wss://food-delievery-production.up.railway.app");
+    const newSocket = new WebSocket(
+      window.location.origin.replace(/^http/, "ws") // Auto-detect protocol
+    );
+    
 
     // const newSocket = new WebSocket(
     //   window.location.origin.replace(/^http/, "ws") // Auto-detect protocol
@@ -71,10 +75,12 @@ export function Chat() {
       // console.log("email",email);
       // const messageToSend = `${email}${messageInput}`;
       const messageToSend = `${email}: ${messageInput}`;
+      if (socket.readyState === WebSocket.OPEN) {
 
-      socket.send(messageToSend);
-      setMyMessage((prev) => [...prev, messageInput]);
-      setMessageInput(""); // Clear input after sending
+        socket.send(messageToSend);
+        setMyMessage((prev) => [...prev, messageInput]);
+        setMessageInput(""); // Clear input after sending
+      }
     }else{
       console.log("unable to enter");
     }

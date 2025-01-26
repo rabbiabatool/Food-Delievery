@@ -86,7 +86,7 @@ const { UserRouter } = require("./UserRouter/UserRouter");
 const app = express();
 const server = http.createServer(app);  // Attach Express to HTTP server
 // const wss = new WebSocket.Server({ server });
-const wss = new WebSocket.Server({ server, perMessageDeflate: false });
+const wss = new WebSocket.Server({ server });
 
 
 const PORT = process.env.PORT || 5000;
@@ -105,18 +105,30 @@ app.use(UserRouter);
 // ✅ WebSocket logic
 wss.on("connection", (ws) => {
   console.log("Client connected");
-
   ws.on("message", (message) => {
-    console.log("Received:", message);
-    ws.send("Message received: " + message); // Echo back for testing
+    console.log("📩 Received:", message);
+  
+    // ✅ Broadcast the message to all connected clients
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
   });
+  
+  // ws.on("message", (message) => {
+  //   console.log("Received:", message);
+  //   ws.send("Message received: " + message); // Echo back for testing
+  // });
 
   ws.on("close", () => console.log("Client disconnected"));
 });
-
-// ✅ Start the HTTP + WebSocket server
-server.listen(process.env.PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
 });
+// // ✅ Start the HTTP + WebSocket server
+// server.listen(process.env.PORT, () => {
+//   console.log(`✅ Server running on port ${PORT}`);
+// });
 
 
