@@ -85,7 +85,9 @@ const { UserRouter } = require("./UserRouter/UserRouter");
 
 const app = express();
 const server = http.createServer(app);  // Attach Express to HTTP server
-const wss = new WebSocket.Server({ server });
+// const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server, perMessageDeflate: false });
+
 
 const PORT = process.env.PORT || 5000;
 
