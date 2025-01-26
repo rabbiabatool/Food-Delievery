@@ -78,21 +78,25 @@
 require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
+const http = require("http"); // Import the http module
 const WebSocket = require("ws");
 const { UserRouter } = require("./UserRouter/UserRouter");
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-const PORT = process.env.PORT || 5000; // Define port here
+// Create an HTTP server using Express
+const server = http.createServer(app);
 
-const wss = new WebSocket.Server({ port: PORT }); // Use Railway's PORT env var
+// Create the WebSocket server, attaching it to the HTTP server
+const wss = new WebSocket.Server({ server }); // Attach to the server
 
 wss.on('connection', ws => {
   console.log('Client connected');
 
   ws.on('message', message => {
     console.log(`Received: ${message}`);
-    ws.send(`Echo: ${message}`); // Send back the received message
+    ws.send(`Echo: ${message}`);
   });
 
   ws.on('close', () => {
@@ -106,20 +110,17 @@ wss.on('connection', ws => {
 
 // Correctly setup Express middlewares
 app.use(cors({
-  origin: '*', // Or specify your frontend domain
+  origin: '*',
   methods: ['GET', 'POST'],
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Serve static images
 app.use('/images', express.static('upload/images'));
-
-// Attach User Router
 app.use(UserRouter);
 
-// Start the WebSocket server
-wss.listen(PORT, () => {
+// Start the HTTP server (which will also start the WebSocket server)
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
